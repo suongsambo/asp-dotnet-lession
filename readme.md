@@ -47,8 +47,6 @@ touch DTOs/UserDto.cs
 touch DTOs/CreateUserDto.cs
 touch DTOs/UpdateUserDto.cs
 
-
-
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet add package BCrypt.Net-Next
@@ -57,13 +55,6 @@ dotnet add package Swashbuckle.AspNetCore
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 
-dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
-dotnet remove package Microsoft.EntityFrameworkCore.Tools
-dotnet remove package Microsoft.EntityFrameworkCore.Design
-dotnet remove package Microsoft.EntityFrameworkCore
 
-
-dotnet add package Microsoft.EntityFrameworkCore --version 9.0.0
-dotnet add package Microsoft.EntityFrameworkCore.Relational --version 9.0.0
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 9.0.0
-dotnet add package Microsoft.EntityFrameworkCore.Tools --version 9.0.0
+#add Swegger
+dotnet add package Swashbuckle.AspNetCore
