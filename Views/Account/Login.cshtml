@@ -1,0 +1,18 @@
+@* Views/Account/Login.cshtml *@
+@model MyWebApp.Models.LoginDto
+
+<h2>Login</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+    <div class="mb-3">
+        <label>Username</label>
+        <input name="Username" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label>Password</label>
+        <input name="Password" type="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

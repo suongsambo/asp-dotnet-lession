@@ -1,56 +1,52 @@
+// Controllers/UsersController.cs
 using Microsoft.AspNetCore.Mvc;
-using UserManagementAPI.DTOs;
-using UserManagementAPI.Services;
+using MyWebApp.Models;
+using MyWebApp.Services;
 
-namespace UserManagementAPI.Controllers;
+namespace MyWebApp.Controllers;
 
-[ApiController]
-[Route("api/users")]
-public class UsersController : ControllerBase
+public class UsersController : Controller
 {
-    private readonly IUserService _service;
+    private readonly IUserService _userService;
+    public UsersController(IUserService userService) => _userService = userService;
 
-    public UsersController(IUserService service)
+    public async Task<IActionResult> Index() => View(await _userService.GetAllAsync());
+
+    public IActionResult Create() => View();
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(UserCreateDto dto)
     {
-        _service = service;
+        await _userService.CreateAsync(dto);
+        return RedirectToAction(nameof(Index));
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> Edit(int id)
     {
-        return Ok(await _service.GetAllAsync());
-    }
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> Get(int id)
-    {
-        var user = await _service.GetByIdAsync(id);
-
-        if (user == null)
-            return NotFound();
-
-        return Ok(user);
+        var user = await _userService.GetByIdAsync(id);
+        return user is null ? NotFound() : View(user);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateUserDto dto)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, UserUpdateDto dto)
     {
-        var user = await _service.CreateAsync(dto);
-
-        return CreatedAtAction(
-            nameof(Get),
-            new { id = user.Id },
-            user);
+        await _userService.UpdateAsync(id, dto);
+        return RedirectToAction(nameof(Index));
     }
 
-    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deleted = await _service.DeleteAsync(id);
+        var user = await _userService.GetByIdAsync(id);
+        return user is null ? NotFound() : View(user);
+    }
 
-        if (!deleted)
-            return NotFound();
-
-        return NoContent();
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        await _userService.DeleteAsync(id);
+        return RedirectToAction(nameof(Index));
     }
 }

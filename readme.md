@@ -56,5 +56,17 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 
 
+JWT
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add package BCrypt.Net-Next
+
+
+
+dotnet ef database drop
+dotnet ef database drop -f
+dotnet ef database update
+dotnet ef migrations remove
+
+
 #add Swegger
 dotnet add package Swashbuckle.AspNetCore

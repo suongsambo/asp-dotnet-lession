@@ -1,14 +1,12 @@
+// Data/ApplicationDbContext.cs
 using Microsoft.EntityFrameworkCore;
-using UserManagementAPI.Models;
+using MyWebApp.Models;
 
-namespace UserManagementAPI.Data;
+namespace MyWebApp.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     public DbSet<User> Users => Set<User>();
 }

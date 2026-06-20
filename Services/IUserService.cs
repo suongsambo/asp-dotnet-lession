@@ -1,12 +1,14 @@
-using UserManagementAPI.DTOs;
-using UserManagementAPI.Models;
+// Services/IUserService.cs
+using MyWebApp.Models;
 
-namespace UserManagementAPI.Services;
+namespace MyWebApp.Services;
 
 public interface IUserService
 {
-    Task<List<User>> GetAllAsync();
-    Task<User?> GetByIdAsync(int id);
-    Task<User> CreateAsync(CreateUserDto dto);
+    Task<List<UserViewDto>> GetAllAsync();
+    Task<UserViewDto?> GetByIdAsync(int id);
+    Task<User?> GetByUsernameAsync(string username);
+    Task<UserViewDto> CreateAsync(UserCreateDto dto);
+    Task<bool> UpdateAsync(int id, UserUpdateDto dto);
     Task<bool> DeleteAsync(int id);
 }
